@@ -21,6 +21,17 @@ class Posts(Resource):
         posts = [post.to_dict() for post in Post.query.all()]
         return make_response(jsonify(posts), 200)
 
+    def post(self):
+        data = request.form
+        new_post = Post(
+            content=data['content'],
+            title=data['title'],
+            user_id=data['user_id']
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return make_response(jsonify(new_post.to_dict()), 201)
+
 class Messages(Resource):
     def get(self):
         messages = [message.to_dict() for message in Message.query.all()]
