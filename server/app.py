@@ -26,6 +26,42 @@ class Messages(Resource):
         messages = [message.to_dict() for message in Message.query.all()]
         return make_response(jsonify(messages), 200)
 
+    def post(self):
+        data = request.form
+        new_message = Message(
+            subject=data['subject']
+            content=data['content'],
+            sender_id=data['sender_id'],
+            reciever_id=data['reciever_id'],
+        )
+        db.session.add(new_message)
+        db.session.commit()
+        return make_response(jsonify(new_message.to_dict()), 201)
+
+class MessagesById(Resource):
+    def get(self, id):
+        try:
+            message = Message.query.filter_by(id=id).first()
+            return make_response(jsonify(message.to_dict()), 200)
+        except:
+            return make_response({'error': 'Message not found.'})
+
+    def patch(self, id):
+        data = request.form
+        message = Message.query.filter_by(id=id).first()
+        for attr in data:
+            setattr(message, attr, data[attr])
+        db.session.add(message)
+        db.session.commit()
+        return make_response(jsonify(message.to_dict()), 202)
+
+    def delete(self, id):
+        message = Message.query.filter_by(id=id).first()
+        db.session.delete(message)
+        db.session.commit()
+        response_dict = {'message': 'Message successfully deleted.'}
+        return make_response(jsonify(response_dict.to_dict()), 200)
+
 class Friends(Resource):
     def get(self):
         friends = [friend.to_dict() for friend in Friend.query.all()]
@@ -33,23 +69,35 @@ class Friends(Resource):
 
 class FriendsByUsername(Resource):
     def get(self, username):
-        pass
+        try:
+            friends = Friend.query.filter_by(username=username).first()
+            return make_response(jsonify(friends.to_dict()), 200)
+        except:
+            return make_response({'error': 'Friend not found'})
 
 class Login(Resource):
-    def get(self):
-        pass
+    def post(self):
+        user = User.query.filter(User.username == request.get_json()['username'])
+        session['user_id'] = user.id
+        return user.to_dict(), 200
 
 class CheckSession(Resource):
     def get(self):
-        pass
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if user:
+            return user.to_dict(), 200
+        else:
+            return {}, 401
 
 class Logout(Resource):
-    def get(self):
-        pass
+    def delete(self):
+        session['user_id'] = None
+        return {'message': '204: No Content'}, 204
 
 api.add_resource(Users, '/users')
 api.add_resource(Posts, '/posts')
 api.add_resource(Messages, '/messages')
+api.add_resource(MessagesById, '/messages/<int:id>')
 api.add_resource(Friends, '/friends')
 api.add_resource(FriendsByUsername, '/friends/<str:username>')
 api.add_resource(Login, '/login')
