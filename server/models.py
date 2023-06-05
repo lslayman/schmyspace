@@ -8,6 +8,9 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    # serialize_only = ('username', 'friends.user_friend')
+    serialize_rules = ('-posts.user', '-messages_sent.sender', '-messages_recieved.reciever', '-friends.user_friend', '-users.user_user', '-friends.user_user', '-users.user_friend')
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
@@ -19,8 +22,9 @@ class User(db.Model, SerializerMixin):
 
     posts = db.relationship('Post', backref='user')
     messages_sent = db.relationship('Message', backref='sender', foreign_keys='Message.sender_id')
-    messages_received = db.relationship('Message', backref='receiver', foreign_keys='Message.receiver_id')
-    friends = db.relationship('Friend', backref='user_friend', foreign_keys='Friend.user_id')
+    messages_received = db.relationship('Message', backref='reciever', foreign_keys='Message.receiver_id')
+    friends = db.relationship('Friend', backref='user_friend', foreign_keys='Friend.friend_id')
+    users = db.relationship('Friend', backref='user_user', foreign_keys='Friend.user_id')
 
     @validates('username')
     def validate_username(self, key, username):
@@ -69,6 +73,8 @@ class User(db.Model, SerializerMixin):
 class Post(db.Model, SerializerMixin):
     __tablename__ = 'posts'
 
+    serialize_rules = ('-user.posts',)
+
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String)
     content = db.Column(db.String)
@@ -81,6 +87,8 @@ class Post(db.Model, SerializerMixin):
 
 class Message(db.Model, SerializerMixin):
     __tablename__ = 'messages'
+
+    serialize_rules = ('-sender', '-receiver')
 
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String)
@@ -96,12 +104,14 @@ class Message(db.Model, SerializerMixin):
 class Friend(db.Model, SerializerMixin):
     __tablename__ = 'friends'
 
+    serialize_rules = ('-user_user.users', '-user_friend.friends' '-user_user.friends', '-user_friend.users')
+
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     friend_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    user = db.relationship('User', foreign_keys=[user_id])
-    friend = db.relationship('User', foreign_keys=[friend_id])
+    # user = db.relationship('User', foreign_keys=[user_id])
+    # friend = db.relationship('User', foreign_keys=[friend_id])
 
     __table_args__ = (db.UniqueConstraint('user_id', 'friend_id'),)
 
