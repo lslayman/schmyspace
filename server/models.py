@@ -10,7 +10,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.String)
     profile_picture = db.Column(db.String)
     bio = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
@@ -19,7 +19,7 @@ class User(db.Model, SerializerMixin):
     posts = db.relationship('Post', backref='user')
     messages_sent = db.relationship('Message', backref='sender', foreign_keys='Message.sender_id')
     messages_received = db.relationship('Message', backref='receiver', foreign_keys='Message.receiver_id')
-    friends = db.relationship('Friend', backref='user')
+    friends = db.relationship('Friend', backref='user_friend', foreign_keys='Friend.user_id')
 
     @validates('username')
     def validate_username(self, key, username):
@@ -43,9 +43,7 @@ class User(db.Model, SerializerMixin):
     
     @validates('password')
     def validate_password(self, key, password):
-        if not password:
-            raise ValueError("Password required.")
-        elif 8 <= password <= 16:
+        if not (8 <= len(password) <= 16):
             raise ValueError("Password must be between 8 and 16 characters long.")
         elif not re.search(r'[A-Z]', password):
             raise ValueError("Password must contain at least one capital letter.")

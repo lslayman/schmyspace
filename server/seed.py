@@ -16,7 +16,6 @@ def seed_data():
         user = User(
             username=fake.user_name(),
             email=fake.email(),
-            password=fake.password(),
             profile_picture=fake.image_url(),
             bio=fake.text()
         )
@@ -32,22 +31,28 @@ def seed_data():
             user=fake.random_element(elements=users)
         )
         db.session.add(post)
+    db.session.commit()
 
     for user in users:
+        print('hello')
         friend = fake.random_element(elements=users)
         while friend == user:
             friend = fake.random_element(elements=users)
-        friend1 = Friend(user=user, friend=friend)
-        friend2 = Friend(user=friend, friend=user)
+        friend1 = Friend(user_id=user.id, friend_id=friend.id)
+        friend2 = Friend(user_id=friend.id, friend_id=user.id)
         db.session.add(friend1)
         db.session.add(friend2)
     db.session.commit()
-
+    
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
         # Seed code goes here!
+        User.query.delete()
+        Post.query.delete()
+        Message.query.delete()
+        Friend.query.delete()
         seed_data()
 
         print('Data seeded successfully.')
