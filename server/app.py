@@ -11,6 +11,8 @@ from config import app, db, api
 from models import User, Post, Message, Friend
 # Views go here!
 
+app.secret_key = b'\xae\x8e\x94[\xe4^\x90\x9a\xb8\xeb\x8a\x9b\xf6\xf4H\xd7'
+
 class Users(Resource):
     def get(self):
         users = [user.to_dict() for user in User.query.all()]
