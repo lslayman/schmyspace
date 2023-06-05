@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, session
 from flask_restful import Resource
 
 # Local imports
@@ -26,7 +26,7 @@ class Posts(Resource):
         new_post = Post(
             content=data['content'],
             title=data['title'],
-            user_id=data['user_id']
+            user_id=data['user_id'],
         )
         db.session.add(new_post)
         db.session.commit()
@@ -40,7 +40,7 @@ class Messages(Resource):
     def post(self):
         data = request.form
         new_message = Message(
-            subject=data['subject']
+            subject=data['subject'],
             content=data['content'],
             sender_id=data['sender_id'],
             reciever_id=data['reciever_id'],
@@ -71,7 +71,7 @@ class MessagesById(Resource):
         db.session.delete(message)
         db.session.commit()
         response_dict = {'message': 'Message successfully deleted.'}
-        return make_response(jsonify(response_dict.to_dict()), 200)
+        return make_response(jsonify(response_dict), 200)
 
 class Friends(Resource):
     def get(self):
@@ -88,7 +88,7 @@ class FriendsByUsername(Resource):
 
 class Login(Resource):
     def post(self):
-        user = User.query.filter(User.username == request.get_json()['username'])
+        user = User.query.filter(User.username == request.form()['username']).first()
         session['user_id'] = user.id
         return user.to_dict(), 200
 
@@ -110,7 +110,7 @@ api.add_resource(Posts, '/posts')
 api.add_resource(Messages, '/messages')
 api.add_resource(MessagesById, '/messages/<int:id>')
 api.add_resource(Friends, '/friends')
-api.add_resource(FriendsByUsername, '/friends/<str:username>')
+api.add_resource(FriendsByUsername, '/friends/<string:username>')
 api.add_resource(Login, '/login')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Logout, '/logout')
