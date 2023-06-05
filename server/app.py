@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, jsonify, make_response, session
+from flask import request, jsonify, make_response
 from flask_restful import Resource
 
 # Local imports
@@ -26,7 +26,7 @@ class Posts(Resource):
         new_post = Post(
             content=data['content'],
             title=data['title'],
-            user_id=data['user_id'],
+            user_id=data['user_id']
         )
         db.session.add(new_post)
         db.session.commit()
@@ -43,7 +43,7 @@ class Messages(Resource):
             subject=data['subject'],
             content=data['content'],
             sender_id=data['sender_id'],
-            reciever_id=data['reciever_id'],
+            receiver_id=data['receiver_id'],
         )
         db.session.add(new_message)
         db.session.commit()
@@ -68,10 +68,11 @@ class MessagesById(Resource):
 
     def delete(self, id):
         message = Message.query.filter_by(id=id).first()
+        if message == None:
+            return({'error': '404: Not Found.'})
         db.session.delete(message)
         db.session.commit()
-        response_dict = {'message': 'Message successfully deleted.'}
-        return make_response(jsonify(response_dict), 200)
+        return make_response('', 204)
 
 class Friends(Resource):
     def get(self):
@@ -88,7 +89,7 @@ class FriendsByUsername(Resource):
 
 class Login(Resource):
     def post(self):
-        user = User.query.filter(User.username == request.form()['username']).first()
+        user = User.query.filter(User.username == request.get_json()['username'])
         session['user_id'] = user.id
         return user.to_dict(), 200
 
