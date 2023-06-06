@@ -14,9 +14,52 @@ from models import User, Post, Message, Friend
 app.secret_key = b'\xae\x8e\x94[\xe4^\x90\x9a\xb8\xeb\x8a\x9b\xf6\xf4H\xd7'
 
 class Users(Resource):
+    
     def get(self):
         users = [user.to_dict() for user in User.query.all()]
         return make_response(jsonify(users), 200)
+    
+    # def patch(self):
+
+    #     user = db.session.query(User).first()
+    #     for attr in request.form:
+    #         setattr(user, attr, request.form[attr])
+
+    #         db.session.add(user)
+    #         db.session.commit()
+
+    #         response_dict = user.to_dict()
+
+    #         response = make_response(
+    #             response_dict,
+    #             200
+    #         )
+
+    #         return response
+
+    # def post(self):
+
+    #     new_user = User(
+    #         username=request.form['username']
+    #         password=request.form['password']
+    #         email=request.form['email']
+    #         profile_picture=request.form['profile_picture']
+    #         bio=request.form['bio']
+    #     )
+
+    #     db.session.add(new_user)
+    #     db.session.commit()
+
+    #     user_dict = new_user.to_dict()
+
+    #     response = make_response(
+    #         user_dict,
+    #         201
+    #     )
+
+    #     return response
+
+    # def delete(self):
 
 class Posts(Resource):
     def get(self):
