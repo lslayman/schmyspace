@@ -11,10 +11,100 @@ from config import app, db, api
 from models import User, Post, Message, Friend
 # Views go here!
 
+app.secret_key = b'\xae\x8e\x94[\xe4^\x90\x9a\xb8\xeb\x8a\x9b\xf6\xf4H\xd7'
+
+# Lauren unable to pull for some reason
 class Users(Resource):
+    
     def get(self):
         users = [user.to_dict() for user in User.query.all()]
         return make_response(jsonify(users), 200)
+    
+    def post(self):
+
+        new_user = User(
+            username=request.form['username'],
+            password=request.form['password'],
+            email=request.form['email'],
+            profile_picture=request.form['profile_picture'],
+            bio=request.form['bio']
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        user_dict = new_user.to_dict()
+
+        response = make_response(
+            user_dict,
+            201
+        )
+
+        return response
+
+# GET & PATCH working for Lauren; not POST
+class UsersById(Resource):
+
+    def get(self, id):
+         
+        user_dict = User.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            user_dict,
+            200
+        )
+        return response
+
+    def patch(self, id):
+
+        user = User.query.filter_by(id=id).first()
+        for attr in request.form:
+            setattr(user, attr, request.form[attr])
+
+        db.session.add(user)
+        db.session.commit()
+
+        response_dict = user.to_dict()
+
+        response = make_response(
+            response_dict,
+            200
+        )
+
+        return response
+        
+    def post(self):
+        data = request.form
+
+        new_user = User(
+            id = data['id'],
+            username=data['username'],
+            password=data['password'],
+            email=data['email'],
+            profile_picture=data['profile_picture'],
+            bio=data['bio']
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return make_response(jsonify(new_user.to_dict()), 201)
+    
+    def delete(self, id):
+
+        user = User.query.filter_by(id=id).first()
+
+        db.session.delete(user)
+        db.session.commit()
+
+        response_dict = {"message": "record successfully deleted"}
+
+        response = make_response(
+            response_dict,
+            200
+        )
+
+        return response
 
 class Posts(Resource):
     def get(self):
@@ -107,6 +197,7 @@ class Logout(Resource):
         return {'message': '204: No Content'}, 204
 
 api.add_resource(Users, '/users')
+api.add_resource(UsersById, '/users/<int:id>')
 api.add_resource(Posts, '/posts')
 api.add_resource(Messages, '/messages')
 api.add_resource(MessagesById, '/messages/<int:id>')
