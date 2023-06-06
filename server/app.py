@@ -3,15 +3,13 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, session
 from flask_restful import Resource
 
 # Local imports
-from config import app, db, api
+from config import app, db, api, bcrypt
 from models import User, Post, Message, Friend
 # Views go here!
-
-app.secret_key = b'\xae\x8e\x94[\xe4^\x90\x9a\xb8\xeb\x8a\x9b\xf6\xf4H\xd7'
 
 # Lauren unable to pull for some reason
 class Users(Resource):
@@ -177,19 +175,52 @@ class FriendsByUsername(Resource):
         except:
             return make_response({'error': 'Friend not found'})
 
+class SignUp(Resource):
+    def post(self):
+        data = request.get_json()
+        username=data['username']
+        password=data['password']
+        email=data['email']
+        profile_picture=data['profile_picture']
+        bio=data['bio']
+
+        if username and password:
+            new_user = User(
+                username=username,
+                email=email,
+                profile_picture=profile_picture,
+                bio=bio
+            )
+            new_user.password = password
+            db.session.add(new_user)
+            db.session.commit()
+
+            session['user_id'] = new_user.id
+            return new_user.to_dict(), 201
+
+        return {'error': '422 Unprocessable Entity'}, 422
+
+
 class Login(Resource):
     def post(self):
-        user = User.query.filter(User.username == request.get_json()['username'])
-        session['user_id'] = user.id
-        return user.to_dict(), 200
+        data = request.get_json()
+
+        username = data['username']
+        password = data['password']
+        
+        user = User.query.filter_by(username=username).first()
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            return make_response(user.to_dict(), 200)
+        else:
+            return make_response("Invalid credentials", 401)
 
 class CheckSession(Resource):
     def get(self):
-        user = User.query.filter(User.id == session.get('user_id')).first()
-        if user:
+        if session.get('user_id'):
+            user = User.query.filter(User.id == session['user_id']).first()
             return user.to_dict(), 200
-        else:
-            return {}, 401
+        return {}, 204
 
 class Logout(Resource):
     def delete(self):
@@ -203,6 +234,7 @@ api.add_resource(Messages, '/messages')
 api.add_resource(MessagesById, '/messages/<int:id>')
 api.add_resource(Friends, '/friends')
 api.add_resource(FriendsByUsername, '/friends/<string:username>')
+api.add_resource(SignUp, '/signup')
 api.add_resource(Login, '/login')
 api.add_resource(CheckSession, '/check_session')
 api.add_resource(Logout, '/logout')
