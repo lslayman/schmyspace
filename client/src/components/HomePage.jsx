@@ -2,7 +2,8 @@ import React, { useState } from "react"
 
 function HomePage(){
     return(
-        true
+        <div>
+        </div>
     )
 }
 
