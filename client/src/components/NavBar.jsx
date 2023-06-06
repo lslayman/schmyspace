@@ -8,9 +8,9 @@ function NavBar(){
             </div>
             <div className="navbar-elements">
                 <ul>
-                    <li><NavLink to="/" className='navLink'>Home</NavLink></li>
-                    <li><NavLink to='/users' className='navLink'>Profile</NavLink></li>
-                    <li><NavLink to='/messages'>Messages</NavLink></li>
+                    <li><NavLink to="/" className='navLink'>Home |</NavLink></li>
+                    <li><NavLink to='/users' className='navLink'>Profile |</NavLink></li>
+                    <li><NavLink to='/messages'>Messages |</NavLink></li>
                     <li><NavLink to='/login'>Login</NavLink></li>
                 </ul>
             </div>
