@@ -181,15 +181,11 @@ class SignUp(Resource):
         username=data['username']
         password=data['password']
         email=data['email']
-        profile_picture=data['profile_picture']
-        bio=data['bio']
 
         if username and password:
             new_user = User(
                 username=username,
                 email=email,
-                profile_picture=profile_picture,
-                bio=bio
             )
             new_user.password = password
             db.session.add(new_user)
@@ -209,7 +205,7 @@ class Login(Resource):
         password = data['password']
         
         user = User.query.filter_by(username=username).first()
-        if user.authenticate(password):
+        if user and user.authenticate(password):
             session['user_id'] = user.id
             return make_response(user.to_dict(), 200)
         else:
@@ -220,7 +216,7 @@ class CheckSession(Resource):
         if session.get('user_id'):
             user = User.query.filter(User.id == session['user_id']).first()
             return user.to_dict(), 200
-        return {}, 204
+        return None, 404
 
 class Logout(Resource):
     def delete(self):
