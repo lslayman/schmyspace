@@ -8,12 +8,12 @@ function NavBar(){
                     <h1>Schmy Space</h1>
                 </div>
                 <div className="login-button">
-                    <li><NavLink to='/login' className='loginlink'>Login</NavLink></li>
+                    <li><NavLink to='/logout' className='loginlink'>Logout</NavLink></li>
                 </div>
             </div>
             <div className="navbar-elements">
                 <ul>
-                    <li><NavLink to="/" className='navLink'>Home</NavLink></li>
+                    <li><NavLink to="/home" className='navLink'>Home</NavLink></li>
                     <li><NavLink to="/browse" className='navLink'>Browse</NavLink> </li>
                     <li><NavLink to='/search' className='navLink'>Search</NavLink></li>
                     <li><NavLink to='/messages'>Messages</NavLink></li>

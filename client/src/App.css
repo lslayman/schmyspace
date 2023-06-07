@@ -21,7 +21,7 @@ nav li + li:before{
 }
 
 .navLink{
-    color: white;
+    color: black
 }
 
 a:link { 
@@ -72,4 +72,28 @@ a:active {
     height: 100%;
     padding: 0px 5px 5px 5px;
     
+}
+
+.profile-link{
+    background-color:  rgb(94, 175, 246);
+    padding: 5px;
+}
+
+.new-blog-wrapper{
+    display: grid;
+}
+
+.new-blog{
+    height: 100px;
+    width: 500px;
+    grid-column: 2/3;
+    text-align: start;
+}
+
+.new-blog-title{
+    text-align: center;
+}
+
+.new-blog-button{
+    grid-column: 1;
 }
