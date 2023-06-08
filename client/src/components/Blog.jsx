@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Posts from "./Posts";
 
-function Blog({ posts, users, setPosts }) {
-    const [blogPost, setBlogPost] = useState({ title: "", content: "Create Your Blog Here!", user_id: users.id  });
-
+function Blog({ posts, users, setPosts, deletedPost }) {
+    const [blogPost, setBlogPost] = useState({ title: "", content: "", user_id: users.id  });
     const reversedPosts = posts ? Array.from(posts).reverse() : [];
 
     const postList = reversedPosts?.map((post) => {
@@ -14,22 +13,38 @@ function Blog({ posts, users, setPosts }) {
         user={post.user}
         currentUser={users}
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        handleEditChange={handleEditTitle}
         id={post.id}
+        handleEditContent={handleEditContent}
     />;
     });
 
     function handleDelete(id) {
         console.log(id)
+        deletedPost(id)
         fetch(`/api/posts/${id}`, {
             method: 'DELETE'
         })
-            .then(res=>res.json())
-            .then(() => {
-                setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
-              })
       }
 
+    function handleEdit(id, updatedPost) {
+        fetch(`/api/posts/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedPost),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+            const updatedPosts = posts.map((post) => (post.id === id ? data : post));
+            setPosts(updatedPosts);
+
+            });
+        }
+      
+
     function handleSubmit(e) {
+    e.preventDefault()
     console.log(blogPost)
     fetch("/api/posts", {
         method: "POST",
@@ -48,6 +63,14 @@ function Blog({ posts, users, setPosts }) {
 
     function handleContentChange(e) {
     setBlogPost({ ...blogPost, content: e.target.value });
+    }
+
+    function handleEditTitle(e){
+        setBlogPost({...blogPost, title: e.target.innerHTML})
+    }
+
+    function handleEditContent(e){
+        setBlogPost({...blogPost, content: e.target.innerHTML})
     }
 
     return (
@@ -77,10 +100,12 @@ function Blog({ posts, users, setPosts }) {
             Publish Blog Entry
             </button>
         </form>
+        <br></br>
         </div>
         <div className="post-list">{postList}</div>
     </div>
     );
-    }
+    
+}
 
 export default Blog;
