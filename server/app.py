@@ -72,7 +72,7 @@ class UsersById(Resource):
         return response
         
     def post(self):
-        data = request.form
+        data = request.get_json()
 
         new_user = User(
             id = data['id'],
@@ -110,7 +110,8 @@ class Posts(Resource):
         return make_response(jsonify(posts), 200)
 
     def post(self):
-        data = request.form
+        data = request.get_json()
+        print(data)
         new_post = Post(
             content=data['content'],
             title=data['title'],
@@ -120,13 +121,38 @@ class Posts(Resource):
         db.session.commit()
         return make_response(jsonify(new_post.to_dict()), 201)
 
+class PostsById(Resource):
+    def get(self, id):
+        try:
+            post = Post.query.filter_by(id=id).first()
+            return make_response(jsonify(post.to_dict()), 200)
+        except:
+            return make_response({'error': 'Post not found.'})
+
+    def patch(self, id):
+        data = request.get_json()
+        post = Post.query.filter_by(id=id).first()
+        for attr in data:
+            setattr(post, attr, data[attr])
+        db.session.add(post)
+        db.session.commit()
+        return make_response(jsonify(post.to_dict()), 202)
+
+    def delete(self, id):
+        post = Post.query.filter_by(id=id).first()
+        if post == None:
+            return({'error': '404: Not Found.'})
+        db.session.delete(post)
+        db.session.commit()
+        return make_response('', 204)
+
 class Messages(Resource):
     def get(self):
         messages = [message.to_dict() for message in Message.query.all()]
         return make_response(jsonify(messages), 200)
 
     def post(self):
-        data = request.form
+        data = request.get_json()
         new_message = Message(
             subject=data['subject'],
             content=data['content'],
@@ -146,7 +172,7 @@ class MessagesById(Resource):
             return make_response({'error': 'Message not found.'})
 
     def patch(self, id):
-        data = request.form
+        data = request.get_json()
         message = Message.query.filter_by(id=id).first()
         for attr in data:
             setattr(message, attr, data[attr])
@@ -181,15 +207,11 @@ class SignUp(Resource):
         username=data['username']
         password=data['password']
         email=data['email']
-        profile_picture=data['profile_picture']
-        bio=data['bio']
 
         if username and password:
             new_user = User(
                 username=username,
                 email=email,
-                profile_picture=profile_picture,
-                bio=bio
             )
             new_user.password = password
             db.session.add(new_user)
@@ -209,7 +231,7 @@ class Login(Resource):
         password = data['password']
         
         user = User.query.filter_by(username=username).first()
-        if user.authenticate(password):
+        if user and user.authenticate(password):
             session['user_id'] = user.id
             return make_response(user.to_dict(), 200)
         else:
@@ -220,7 +242,7 @@ class CheckSession(Resource):
         if session.get('user_id'):
             user = User.query.filter(User.id == session['user_id']).first()
             return user.to_dict(), 200
-        return {}, 204
+        return None, 404
 
 class Logout(Resource):
     def delete(self):
@@ -230,6 +252,7 @@ class Logout(Resource):
 api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')
 api.add_resource(Posts, '/posts')
+api.add_resource(PostsById, '/posts/<int:id>')
 api.add_resource(Messages, '/messages')
 api.add_resource(MessagesById, '/messages/<int:id>')
 api.add_resource(Friends, '/friends')

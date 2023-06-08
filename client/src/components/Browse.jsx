@@ -1,4 +1,5 @@
-function Browse(){
+
+function Browse({}){
     return(
         true
     )
