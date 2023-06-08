@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Route } from "react-router-dom"
 
-function HomePage(){
-
-
+function HomePage(user) {
 
     return(
         <div className="home-page">
