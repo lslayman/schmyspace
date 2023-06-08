@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Login from './Login'
 
-function Home(){
+function Home({setUsers}){
 
 
     return(
@@ -11,7 +11,7 @@ function Home(){
             <p class="centered text">we won't radicalize your grandparents</p>
         </div>
         <div>
-            <Login />
+            <Login setUsers={setUsers}/>
         </div>
         </>
     )
