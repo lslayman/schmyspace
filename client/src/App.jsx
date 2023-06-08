@@ -21,8 +21,15 @@ function App() {
   const [page, setPage] = useState('/')
   const [users, setUsers] = useState(null)
   const [posts, setPosts] = useState(null)
+  const [user, setUser] = useState(null)
 
   const updateUser = (user) => setUsers(user)
+
+  useEffect(()=>{
+      fetch('/api/users')
+          .then(res=>res.json())
+          .then(data=>setUser(data))
+  }, [])
 
   useEffect(()=>{
     fetch('/api/posts')
@@ -50,16 +57,16 @@ function App() {
     <div className='body'>
       <NavBar onChangePage={setPage}/>
       <Routes>
-        <Route path="/home" element={<HomePage users={users} setUsers={setUsers}/>}/>
+        <Route path="/home" element={<HomePage users={users}/>}/>
         <Route path="/logout" element={<Logout setUsers={setUsers}/>}/>
-        <Route path='/profile' element={<Profile users={users} setUsers={setUsers}/>}/>
+        <Route path='/profile' element={<Profile users={users} />}/>
         <Route path='/browse' element={<Browse/>}/>
         <Route path='/search' element={<Search/>}/>
-        <Route path='/blog' element={<Blog posts={posts}/>}/>
+        <Route path='/blog' element={<Blog user={user} posts={posts} users={users} setPosts={setPosts}/>}/>
         <Route path='/messages' element={<Messages/>}/>
       </Routes>
     </div>
   )
-}
+  }
 
-export default App
+  export default App

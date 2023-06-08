@@ -1,4 +1,4 @@
-function Profile({users, setUsers}){
+function Profile({users}){
     return(
         <div>
             <img src={users.profile_picture} placeholder="profile picture"/>

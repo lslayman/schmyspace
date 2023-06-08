@@ -76,10 +76,10 @@ class Post(db.Model, SerializerMixin):
     serialize_rules = ('-user.posts',)
 
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String)
+    type = db.Column(db.String, nullable=True)
     content = db.Column(db.String)
     title = db.Column(db.String)
-    comments = db.Column(db.String)
+    comments = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 

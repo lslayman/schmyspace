@@ -79,15 +79,19 @@ a:active {
     padding: 5px;
 }
 
-.new-blog-wrapper{
+.blog{
     display: grid;
 }
 
 .new-blog{
     height: 100px;
     width: 500px;
-    grid-column: 2/3;
+    margin-left: 10%;
     text-align: start;
+}
+
+.new-blog-wrapper{
+    display: grid;
 }
 
 .new-blog-title{
@@ -95,5 +99,25 @@ a:active {
 }
 
 .new-blog-button{
-    grid-column: 1;
+    margin-left: 10%;
+    width: 200px;
+}
+
+.new-blog-title-input{
+    height: auto;
+    width: 500px;
+    margin-left: 10%;
+}
+
+.new-blog-subject{
+    margin-left: 10%;
+}
+
+.new-blog-content{
+    margin-left: 10%;
+}
+
+.post-list{
+    margin-left: 10%;
+    width: 80%;
 }

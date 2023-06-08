@@ -72,7 +72,7 @@ class UsersById(Resource):
         return response
         
     def post(self):
-        data = request.form
+        data = request.get_json()
 
         new_user = User(
             id = data['id'],
@@ -110,7 +110,8 @@ class Posts(Resource):
         return make_response(jsonify(posts), 200)
 
     def post(self):
-        data = request.form
+        data = request.get_json()
+        print(data)
         new_post = Post(
             content=data['content'],
             title=data['title'],
@@ -126,7 +127,7 @@ class Messages(Resource):
         return make_response(jsonify(messages), 200)
 
     def post(self):
-        data = request.form
+        data = request.get_json()
         new_message = Message(
             subject=data['subject'],
             content=data['content'],
@@ -146,7 +147,7 @@ class MessagesById(Resource):
             return make_response({'error': 'Message not found.'})
 
     def patch(self, id):
-        data = request.form
+        data = request.get_json()
         message = Message.query.filter_by(id=id).first()
         for attr in data:
             setattr(message, attr, data[attr])

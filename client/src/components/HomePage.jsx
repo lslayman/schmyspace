@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { NavLink, Route } from "react-router-dom"
 
-function HomePage({ users, setUsers }){
+function HomePage({ users }){
 
     function handleSubmit(e){
         e.preventDefault()
