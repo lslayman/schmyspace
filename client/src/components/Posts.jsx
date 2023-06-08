@@ -1,23 +1,60 @@
 import { useState, useEffect } from "react";
 
-function Posts({ title, content, user, currentUser, handleDelete, handleEdit, id }) {
-  const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
+function Posts({ title, content, user, currentUser, handleEdit, handleDelete, handleEditTitle, handleEditContent, id }) {
+    const [isCurrentUserPost, setIsCurrentUserPost] = useState(false);
+    const [edit, setEdit] = useState(false)
+    const [editedTitle, setEditedTitle] = useState(title);
+    const [editedContent, setEditedContent] = useState(content);
 
   useEffect(() => {
     setIsCurrentUserPost(currentUser && currentUser.id=== user.id);
   }, [currentUser, user]);
 
+  function handleEditSubmit(e){
+
+    const updatedPost = {
+        title: editedTitle,
+        content: editedContent
+    }
+    handleEdit(id, updatedPost)
+    setEdit(false)
+  }
+
+  function handleInput(e){
+    if (e.target.id === 'title'){
+        setEditedTitle(e.target.textContent)
+        handleEditTitle(e)
+        console.log(editedTitle)
+    }
+    else if (e.target.id === 'content'){
+        setEditedContent(e.target.textContent)
+        handleEditContent(e)
+        console.log(editedContent)
+    }
+  }
+
   return (
     <div>
-      <h2>{title}</h2>
-      {isCurrentUserPost && (
+        {isCurrentUserPost && (
         <div>
           <button onClick={()=>handleDelete(id)}>Delete</button>
-          <button onClick={()=>handleEdit(id)}>Edit</button>
+          <button onClick={()=>setEdit(!edit)}>Edit</button>
         </div>
       )}
-      <h5>{user.username}</h5>
-      <h4>{content}</h4>
+        {edit ? (
+        <div>
+            <h2 contentEditable onInput={handleInput} id="title">{title}</h2>
+            <h5>{user.username}</h5>
+            <h4 contentEditable onInput={handleInput} id="content">{content}</h4>
+            <button onClick={handleEditSubmit}>Submit Edit</button>
+        </div>
+        ) : (
+            <div>
+            <h2>{title}</h2>
+            <h5>{user.username}</h5>
+            <h4>{content}</h4>
+            </div>
+        ) } 
     </div>
   );
 }

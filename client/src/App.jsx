@@ -22,6 +22,14 @@ function App() {
   const [users, setUsers] = useState(null)
   const [posts, setPosts] = useState(null)
 
+  function deletedPost(newPost){
+    const allPosts = posts.filter(post => post.id !== newPost);
+    console.log(allPosts)
+    setPosts(allPosts)
+
+  }
+  console.log(posts)
+
   const updateUser = (user) => setUsers(user)
 
   useEffect(()=>{
@@ -55,7 +63,7 @@ function App() {
         <Route path='/profile' element={<Profile users={users} />}/>
         <Route path='/browse' element={<Browse/>}/>
         <Route path='/search' element={<Search/>}/>
-        <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts}/>}/>
+        <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts} deletedPost={deletedPost}/>}/>
         <Route path='/messages' element={<Messages/>}/>
       </Routes>
     </div>
