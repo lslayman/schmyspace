@@ -31,6 +31,12 @@ def seed_data():
             user=fake.random_element(elements=users)
         )
         db.session.add(post)
+        message = Message(
+            subject=fake.catch_phrase(),
+            content=fake.text(),
+            attachments=fake.image_url()
+        )
+        db.session.add(message)
     db.session.commit()
 
     for user in users:

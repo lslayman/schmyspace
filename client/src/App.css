@@ -1,0 +1,75 @@
+nav {
+    display: grid; /* 1 */
+}
+
+nav ul {
+    display: flex; /* 5 */
+    list-style: none;
+  }
+
+nav li {
+    text-decoration: none;
+}
+
+nav li + li:before{
+    content: " | ";
+    padding: 0 10px;
+}
+
+.navbar-elements{
+    background-color: rgb(94, 175, 246);
+}
+
+.navLink{
+    color: white;
+}
+
+a:link { 
+    text-decoration: none; 
+    color: white;
+}
+
+a:visited { 
+    text-decoration: none;
+    color: white; 
+}
+
+a:hover { 
+    text-decoration: none;
+    color: darkblue;
+}
+
+a:active { 
+    text-decoration: none; 
+    color: white;
+}
+
+.header{
+    display: grid;
+    background-color: rgb(54, 54, 228);
+}
+
+.login-button{
+    grid-column: 20;
+    display: flex;
+    align-items: end;
+    text-decoration: none;
+    list-style: none;
+    padding-bottom: 10px;
+}
+
+.main-title{
+    color: white;
+    padding-left: 15px;
+}
+
+.body{
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    width: 80%;
+    height: 100%;
+    padding: 0px 5px 5px 5px;
+    
+}
