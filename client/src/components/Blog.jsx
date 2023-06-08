@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Posts from "./Posts";
-import PostsUsername from "./PostsUsername";
 
-function Blog({ posts, users, user, setPosts }) {
+function Blog({ posts, users, setPosts }) {
     const [blogPost, setBlogPost] = useState({ title: "", content: "Create Your Blog Here!", user_id: users.id  });
 
     const reversedPosts = posts ? Array.from(posts).reverse() : [];
@@ -13,8 +12,22 @@ function Blog({ posts, users, user, setPosts }) {
         title={post.title} 
         content={post.content}
         user={post.user}
+        currentUser={users}
+        handleDelete={handleDelete}
+        id={post.id}
     />;
     });
+
+    function handleDelete(id) {
+        console.log(id)
+        fetch(`/api/posts/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res=>res.json())
+            .then(() => {
+                setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+              })
+      }
 
     function handleSubmit(e) {
     console.log(blogPost)

@@ -121,6 +121,31 @@ class Posts(Resource):
         db.session.commit()
         return make_response(jsonify(new_post.to_dict()), 201)
 
+class PostsById(Resource):
+    def get(self, id):
+        try:
+            post = Post.query.filter_by(id=id).first()
+            return make_response(jsonify(post.to_dict()), 200)
+        except:
+            return make_response({'error': 'Post not found.'})
+
+    def patch(self, id):
+        data = request.get_json()
+        post = Post.query.filter_by(id=id).first()
+        for attr in data:
+            setattr(post, attr, data[attr])
+        db.session.add(post)
+        db.session.commit()
+        return make_response(jsonify(post.to_dict()), 202)
+
+    def delete(self, id):
+        post = Post.query.filter_by(id=id).first()
+        if post == None:
+            return({'error': '404: Not Found.'})
+        db.session.delete(post)
+        db.session.commit()
+        return make_response('', 204)
+
 class Messages(Resource):
     def get(self):
         messages = [message.to_dict() for message in Message.query.all()]
@@ -227,6 +252,7 @@ class Logout(Resource):
 api.add_resource(Users, '/users')
 api.add_resource(UsersById, '/users/<int:id>')
 api.add_resource(Posts, '/posts')
+api.add_resource(PostsById, '/posts/<int:id>')
 api.add_resource(Messages, '/messages')
 api.add_resource(MessagesById, '/messages/<int:id>')
 api.add_resource(Friends, '/friends')

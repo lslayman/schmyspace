@@ -21,15 +21,8 @@ function App() {
   const [page, setPage] = useState('/')
   const [users, setUsers] = useState(null)
   const [posts, setPosts] = useState(null)
-  const [user, setUser] = useState(null)
 
   const updateUser = (user) => setUsers(user)
-
-  useEffect(()=>{
-      fetch('/api/users')
-          .then(res=>res.json())
-          .then(data=>setUser(data))
-  }, [])
 
   useEffect(()=>{
     fetch('/api/posts')
@@ -62,7 +55,7 @@ function App() {
         <Route path='/profile' element={<Profile users={users} />}/>
         <Route path='/browse' element={<Browse/>}/>
         <Route path='/search' element={<Search/>}/>
-        <Route path='/blog' element={<Blog user={user} posts={posts} users={users} setPosts={setPosts}/>}/>
+        <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts}/>}/>
         <Route path='/messages' element={<Messages/>}/>
       </Routes>
     </div>
