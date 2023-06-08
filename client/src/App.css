@@ -21,7 +21,7 @@ nav li + li:before{
 }
 
 .navLink{
-    color: white;
+    color: black
 }
 
 a:link { 
@@ -72,4 +72,65 @@ a:active {
     height: 100%;
     padding: 0px 5px 5px 5px;
     
+}
+
+.profile-link{
+    background-color:  rgb(94, 175, 246);
+    padding: 5px;
+}
+
+.blog{
+    display: grid;
+}
+
+.new-blog{
+    height: 100px;
+    width: 500px;
+    margin-left: 10%;
+    text-align: start;
+}
+
+.new-blog-wrapper{
+    display: grid;
+}
+
+.new-blog-title{
+    text-align: center;
+}
+
+.new-blog-button{
+    margin-left: 10%;
+    width: 200px;
+}
+
+.new-blog-title-input{
+    height: auto;
+    width: 500px;
+    margin-left: 10%;
+}
+
+.new-blog-subject{
+    margin-left: 10%;
+}
+
+.new-blog-content{
+    margin-left: 10%;
+}
+
+.post-list{
+    margin-left: 10%;
+    width: 80%;
+}
+
+.banner{
+    font-family: "Arial Rounded", sans-serif;
+    color: white;
+    text-indent: 100px;
+    line-height: 0.5;
+    padding-top: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    width: 33%;
+    height: 90px;
+    background-color:#00FA9A;
 }
