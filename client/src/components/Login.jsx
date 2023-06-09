@@ -33,7 +33,7 @@ function Login({setUsers}){
             <form onSubmit={handleSubmit}>
                 <input type='text' value={username} placeholder="Username" onChange={handleUsername} />
                 <br></br>
-                <input type='text' value={password} placeholder="Password" onChange={handlePassword}/>
+                <input type='password' value={password} placeholder="Password" onChange={handlePassword}/>
                 <br></br>
                 <button type='submit'>Login</button>
             </form>

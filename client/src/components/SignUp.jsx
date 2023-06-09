@@ -58,7 +58,7 @@ function SignUp({updateUser}){
                         </div>
                         <div className='signup-title'>
                             <h5>Password:</h5>
-                            <input className='signup-input' type="text" value={password} onChange={handlePassword}/>
+                            <input className='signup-input' type="password" value={password} onChange={handlePassword}/>
                         </div>
                         <br></br>
                         <button className='signup-button' type="submit">Sign Up!</button>
