@@ -24,12 +24,10 @@ function Posts({ title, content, user, currentUser, handleEdit, handleDelete, ha
     if (e.target.id === 'title'){
         setEditedTitle(e.target.textContent)
         handleEditTitle(e)
-        console.log(editedTitle)
     }
     else if (e.target.id === 'content'){
         setEditedContent(e.target.textContent)
         handleEditContent(e)
-        console.log(editedContent)
     }
   }
 

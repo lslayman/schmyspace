@@ -44,7 +44,7 @@ function Blog({ posts, users, setPosts, deletedPost }) {
       
 
     function handleSubmit(e) {
-    e.preventDefault()
+    // e.preventDefault()
     console.log(blogPost)
     fetch("/api/posts", {
         method: "POST",

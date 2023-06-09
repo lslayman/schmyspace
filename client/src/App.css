@@ -21,7 +21,7 @@ nav li + li:before{
 }
 
 .navLink{
-    color: black
+    color: black;
 }
 
 a:link { 
@@ -95,7 +95,7 @@ a:active {
 }
 
 .new-blog-title{
-    text-align: center;
+    margin-left: 10%;
 }
 
 .new-blog-button{
@@ -120,4 +120,65 @@ a:active {
 .post-list{
     margin-left: 10%;
     width: 80%;
+}
+
+.logout{
+    display: grid;
+}
+
+.logout-button{
+    margin-left: 49%;
+    margin-top: 10%;
+}
+
+.signup-wrapper{
+    display: grid;
+    padding: 20px;
+
+}
+
+.signup{
+    /* border-color: black;
+    border-style: solid; */
+    margin-left: 34%;
+    margin-top: 30px;
+    max-width: 425px;
+    height: 350px;
+    background-color: rgb(161, 161, 244);
+
+}
+
+.signup h5{
+    margin: 10px;
+}
+
+.signup-title{
+    color: black;
+    margin-left: 10%;
+    margin-top: 5px;
+}
+
+.signup-input{
+    height: 20px;
+    width: 300px;
+    margin-left: 10px;
+}
+
+.member-signup{
+    margin: 20px;
+    padding: 10px;
+    color: aliceblue;
+    background-color: #b9bfff;
+    text-align: center;
+}
+
+.signup-button{
+    margin-left: 12.4%;
+    height: 30px;
+    width: 308px;
+    background-color: #b9bfff;
+    border: none;
+    color: aliceblue;
+    font-weight: bold;
+    
 }

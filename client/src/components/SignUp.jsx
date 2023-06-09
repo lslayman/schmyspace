@@ -42,16 +42,28 @@ function SignUp({updateUser}){
     }
     else{
         return(
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <input type="text" value={username} placeholder="Username" onChange={handleUsername}/>
-                    <br></br>
-                    <input type="text" value={email} placeholder="Email" onChange={handleEmail}/>
-                    <br></br>
-                    <input type="text" value={password} placeholder="Password" onChange={handlePassword}/>
-                    <br></br>
-                    <button type="submit">Sign Up!</button>
-                </form>
+            <div className="signup-wrapper">
+                <div className="signup">
+                    <form onSubmit={handleSubmit} className="signup-form">
+                        <div className="member-signup">
+                            <h5>Member Signup</h5>
+                        </div>
+                        <div className='signup-title'>
+                            <h5>Username:</h5>
+                            <input className='signup-input' type="text" value={username} onChange={handleUsername}/>
+                        </div>
+                        <div className='signup-title'>
+                            <h5>Email:</h5>
+                            <input className='signup-input' type="text" value={email} onChange={handleEmail}/>
+                        </div>
+                        <div className='signup-title'>
+                            <h5>Password:</h5>
+                            <input className='signup-input' type="text" value={password} onChange={handlePassword}/>
+                        </div>
+                        <br></br>
+                        <button className='signup-button' type="submit">Sign Up!</button>
+                    </form>
+                </div>
             </div>
         )
     }
