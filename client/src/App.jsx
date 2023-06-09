@@ -47,8 +47,8 @@ function App() {
   if(!users) return(
     <div className='body'>
     <NavBarInitial onChangePage={setPage} />
-    <Home/>
     <Routes>
+      <Route path='/' element={<Home setUsers={setUsers}/>} />
       <Route path='/signup' element={<SignUp updateUser={updateUser}/>}/>
       <Route path='/login' element={<Login setUsers={setUsers}/>}/>
     </Routes>

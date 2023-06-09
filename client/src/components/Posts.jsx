@@ -32,27 +32,27 @@ function Posts({ title, content, user, currentUser, handleEdit, handleDelete, ha
   }
 
   return (
-    <div>
-        {isCurrentUserPost && (
-        <div>
-          <button onClick={()=>handleDelete(id)}>Delete</button>
-          <button onClick={()=>setEdit(!edit)}>Edit</button>
-        </div>
-      )}
+    <div className="posts">
         {edit ? (
-        <div>
-            <h2 contentEditable onInput={handleInput} id="title">{title}</h2>
+        <div className="post-body">
+            <h2 className='post-title'contentEditable onInput={handleInput} id="title">{title}</h2>
             <h5>{user.username}</h5>
-            <h4 contentEditable onInput={handleInput} id="content">{content}</h4>
+            <h4 className="post-content" contentEditable onInput={handleInput} id="content">{content}</h4>
             <button onClick={handleEditSubmit}>Submit Edit</button>
         </div>
         ) : (
-            <div>
-            <h2>{title}</h2>
-            <h5>{user.username}</h5>
-            <h4>{content}</h4>
+            <div className="post-body">
+                <h2>{title}</h2>
+                <h5>{user.username}</h5>
+                <h4 className="post-content">{content}</h4>
             </div>
-        ) } 
+        ) }
+        {isCurrentUserPost && (
+        <div className="edit-delete-button">
+          <button onClick={()=>handleDelete(id)}>Delete</button>
+          <button onClick={()=>setEdit(!edit)}>Edit</button>
+        </div>
+      )} 
     </div>
   );
 }

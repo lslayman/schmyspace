@@ -21,7 +21,7 @@ nav li + li:before{
 }
 
 .navLink{
-    color: black;
+    color: black
 }
 
 a:link { 
@@ -95,7 +95,7 @@ a:active {
 }
 
 .new-blog-title{
-    margin-left: 10%;
+    text-align: center;
 }
 
 .new-blog-button{
@@ -117,9 +117,37 @@ a:active {
     margin-left: 10%;
 }
 
+.posts{
+    background-color:#b9bfff ;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.post-body{
+    margin: 20px;
+    font-weight: normal !important;
+}
+
+.post-body h4.post-content {
+    font-weight: normal;
+  }
+
 .post-list{
     margin-left: 10%;
     width: 80%;
+}
+
+.banner{
+    font-family: "Arial Rounded", sans-serif;
+    color: white;
+    text-indent: 100px;
+    line-height: 0.5;
+    padding-top: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    width: 33%;
+    height: 90px;
+    background-color:#00FA9A;
 }
 
 .logout{
@@ -131,13 +159,13 @@ a:active {
     margin-top: 10%;
 }
 
-.signup-wrapper{
+.signup-wrapper, .login-route-wrapper{
     display: grid;
     padding: 20px;
 
 }
 
-.signup{
+.signup, .login-route{
     /* border-color: black;
     border-style: solid; */
     margin-left: 34%;
@@ -148,23 +176,23 @@ a:active {
 
 }
 
-.signup h5{
+.signup h5, .login-route h5{
     margin: 10px;
 }
 
-.signup-title{
+.signup-title, .login-route-title{
     color: black;
     margin-left: 10%;
     margin-top: 5px;
 }
 
-.signup-input{
+.signup-input, .login-route-input{
     height: 20px;
     width: 300px;
     margin-left: 10px;
 }
 
-.member-signup{
+.member-signup, .member-login{
     margin: 20px;
     padding: 10px;
     color: aliceblue;
@@ -172,7 +200,7 @@ a:active {
     text-align: center;
 }
 
-.signup-button{
+.signup-button, .login-route-button{
     margin-left: 12.4%;
     height: 30px;
     width: 308px;
