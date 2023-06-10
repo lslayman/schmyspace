@@ -210,3 +210,55 @@ a:active {
     font-weight: bold;
     
 }
+
+.inbox-container{
+    padding: 20px;
+}
+
+.message-container{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.message-subject{
+    font-weight: bold;
+}
+
+.message-content{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.message-sender-receiver{
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.message-data{
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.message-form input,
+.message-form textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.message-form button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-form button:hover {
+  background-color: #0056b3;
+}

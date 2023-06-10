@@ -11,7 +11,6 @@ from config import app, db, api, bcrypt
 from models import User, Post, Message, Friend
 # Views go here!
 
-# Lauren unable to pull for some reason
 class Users(Resource):
     
     def get(self):
@@ -40,7 +39,6 @@ class Users(Resource):
 
         return response
 
-# GET & PATCH working for Lauren; not POST
 class UsersById(Resource):
 
     def get(self, id):
@@ -153,6 +151,13 @@ class Messages(Resource):
 
     def post(self):
         data = request.get_json()
+        sender_id = data['sender_id']
+        receiver_id = data['receiver_id']
+
+        are_friends = Friend.query.filter_by(user_id = sender_id, friend_id=receiver_id).first()
+        if not are_friends:
+            return{'error': 'Cannot send message. Messages can only be sent between friends.'}, 400
+        
         new_message = Message(
             subject=data['subject'],
             content=data['content'],
@@ -162,6 +167,15 @@ class Messages(Resource):
         db.session.add(new_message)
         db.session.commit()
         return make_response(jsonify(new_message.to_dict()), 201)
+    
+    def delete(self):
+        try:
+            db.session.query(Message).delete()
+            db.session.commit()
+            return {'message': 'Messages cleared successfully'}, 200
+        except:
+            return {'error': 'Request could not be fulfilled'}, 500
+
 
 class MessagesById(Resource):
     def get(self, id):

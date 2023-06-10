@@ -21,14 +21,19 @@ function App() {
   const [page, setPage] = useState('/')
   const [users, setUsers] = useState(null)
   const [posts, setPosts] = useState(null)
+  const [messages, setMessages] = useState([])
+
+  useEffect(() => {
+    fetch('/api/messages')
+    .then(res => res.json())
+    .then(data => setMessages(data))
+  }, [])
 
   function deletedPost(newPost){
     const allPosts = posts.filter(post => post.id !== newPost);
-    console.log(allPosts)
     setPosts(allPosts)
 
   }
-  console.log(posts)
 
   const updateUser = (user) => setUsers(user)
 
@@ -64,7 +69,7 @@ function App() {
         <Route path='/browse' element={<Browse/>}/>
         <Route path='/search' element={<Search/>}/>
         <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts} deletedPost={deletedPost}/>}/>
-        <Route path='/messages' element={<Messages/>}/>
+        <Route path='/messages' element={<Messages messages={messages}/>}/>
       </Routes>
     </div>
   )
