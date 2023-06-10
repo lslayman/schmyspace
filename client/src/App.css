@@ -262,3 +262,136 @@ a:active {
 .message-form button:hover {
   background-color: #0056b3;
 }
+
+.homepage-container{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+        "user-info-container profile-blog-container"
+        "message-center-container profile-blog-container"
+        "announcement-container profile-blog-container";
+    gap: 20px;
+}
+
+.user-info-container {
+    position: relative;
+    margin-top: 50px;
+    border: 1px solid  rgb(94, 175, 246);
+    width: 340px;
+    height: 400px;
+    align-items: flex-start;
+    flex-basis: 25%;
+    grid-area: user-info-container;
+}
+
+.container-header{
+    background-color: rgb(94, 175, 246);
+    color: white;
+    width: 330px;
+    padding: 5px;
+}
+
+.user-info-container img{
+    object-fit: scale-down;
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+
+.profile-links{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.profile-links ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-links li{
+    margin-bottom: 10px;
+}
+
+.user-info-container .profile-links .profileLink {
+    color: rgb(54, 54, 228);
+}
+
+.message-center-container{
+    grid-column: 1 / span 2;
+    position: relative;
+    margin-top: 50px;
+    border: 1px solid  rgb(94, 175, 246);
+    width: 340px;
+    height: 200px;
+    align-items: flex-start;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    grid-area: message-center-container
+}
+
+.message-container-header{
+    background-color: rgb(94, 175, 246);
+    color: white;
+    width: 330px;
+    padding: 5px;
+}
+
+.link-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.link {
+    background-color: white;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.message-center-container .link-container .link {
+    color: rgb(54, 54, 228);
+}
+
+.announcement-container{
+    width: 340px;
+    margin-top: 50px;
+    grid-area: announcement-container;
+}
+
+.announcement-header{
+    background-color:rgb(161, 161, 244);
+    padding: .3px;
+}
+
+.profile-blog-container{
+    margin-top: 50px;
+    flex-basis: 25%;
+    grid-area: profile-blog-container;
+    display: block;
+}
+
+.profile-blog-container .blogLink{
+    color: rgb(54, 54, 228);
+}
+
+.home-friend-container{
+    grid-area: home-friend-container;
+    flex-basis: 25%;
+    display: block;
+}
+
+.home-friend-header{
+    background-color: #eeb737;
+    padding: 5px;
+    margin-top: 20px';
+}

@@ -10,9 +10,6 @@ function Home({setUsers}){
             <h1 class="centered-text">schmyspace</h1>
             <p class="centered text">we won't radicalize your grandparents</p>
         </div>
-        <div>
-            <Login setUsers={setUsers}/>
-        </div>
         </>
     )
 }
