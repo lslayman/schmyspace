@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function Messages({ messages }){
 
-    const [newMessage, setNewMessage] = useState({sender: '', subject: '', content: ''});
+    const [newMessage, setNewMessage] = useState({sender_id: 1,receiver_id: null, subject: '', content: ''});
     const [selectedMessage, setSelectedMessage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,11 +18,11 @@ function Messages({ messages }){
     };
 
     const sendMessage = (newMessage) => {
-        const isFriend = friends.some(friend => friend.id == newMessage.receiver);
-        if (!isFriend) {
-            console.log('Cannot send message. Messages can only be sent between friends.');
-            return;
-        }
+        // const isFriend = friends.some(friend => friend.id == newMessage.receiver);
+        // if (!isFriend) {
+        //     console.log('Cannot send message. Messages can only be sent between friends.');
+        //     return;
+        // }
         fetch('/api/messages', {
             method: 'POST',
             headers: {
@@ -30,7 +30,8 @@ function Messages({ messages }){
             },
             body: JSON.stringify(newMessage),
         })
-        .then(fetchMessages)
+        .then(response => response.json())
+        .then(message => console.log(message))
         .catch(error => {
             console.log('Error sending message:', error);
         });
@@ -47,17 +48,19 @@ function Messages({ messages }){
     const handleSendMessage = (e) => {
         e.preventDefault();
 
-        const sender = e.target.sender.value;
-        const receiver = e.target.receiver.value;
-        const content = e.target.content.value;
-        const subject = e.target.subject.value;
+        // const sender = e.target.sender.value;
+        // const receiver = e.target.receiver.value;
+        // const content = e.target.content.value;
+        // const subject = e.target.subject.value;
 
-        const newMessage = {
-            sender,
-            receiver,
-            content,
-            subject,
-        };
+        // const newMessage = {
+        //     sender,
+        //     receiver,
+        //     content,
+        //     subject,
+        // };
+
+        console.log(newMessage)
 
         sendMessage(newMessage);
 
@@ -91,8 +94,8 @@ function Messages({ messages }){
                         To:
                         <input
                           type="text"
-                          name="sender"
-                          value={newMessage.sender}
+                          name="receiver_id"
+                          value={newMessage.receiver_id}
                           onChange={handleInputChange}
                         />
                     </label>

@@ -164,6 +164,7 @@ class Messages(Resource):
             sender_id=data['sender_id'],
             receiver_id=data['receiver_id'],
         )
+        print(new_message)
         db.session.add(new_message)
         db.session.commit()
         return make_response(jsonify(new_message.to_dict()), 201)

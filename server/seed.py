@@ -17,8 +17,9 @@ def seed_data():
             username=fake.user_name(),
             email=fake.email(),
             profile_picture=fake.image_url(),
-            bio=fake.text()
+            bio=fake.text(),
         )
+        user.password = "Password2!"
         users.append(user)
         db.session.add(user)
 
@@ -45,9 +46,9 @@ def seed_data():
         while friend == user:
             friend = fake.random_element(elements=users)
         friend1 = Friend(user_id=user.id, friend_id=friend.id)
-        friend2 = Friend(user_id=friend.id, friend_id=user.id)
+        # friend2 = Friend(user_id=friend.id, friend_id=user.id)
         db.session.add(friend1)
-        db.session.add(friend2)
+        # db.session.add(friend2)
     db.session.commit()
     
 if __name__ == '__main__':

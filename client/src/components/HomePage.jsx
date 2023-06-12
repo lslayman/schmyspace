@@ -30,6 +30,8 @@ function HomePage({ users }){
         fetch('/api/users')
     }
 
+    // console.log(users)
+
     return(
         <>
         <div className="homepage-container">
@@ -38,7 +40,7 @@ function HomePage({ users }){
                     <div className="container-header">
                         <h2>Welcome, {users.username}!</h2>
                     </div>
-                    <img src={users.profile_photo} alt="Profile Photo" style={{maxWidth: '100%', maxheight: '100%'}}/>
+                    <img src={users.profile_picture} alt="Profile Photo" style={{maxWidth: '100%', maxheight: '100%'}}/>
                     <div className="profile-links">
                         <ul>
                             <li><NavLink to="/profile" className='profileLink'>View my profile!</NavLink></li>

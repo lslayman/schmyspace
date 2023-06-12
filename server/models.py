@@ -22,7 +22,7 @@ class User(db.Model, SerializerMixin):
 
     posts = db.relationship('Post', backref='user')
     messages_sent = db.relationship('Message', backref='sender', foreign_keys='Message.sender_id')
-    messages_received = db.relationship('Message', backref='reciever', foreign_keys='Message.receiver_id')
+    messages_received = db.relationship('Message', backref='receiver', foreign_keys='Message.receiver_id')
     friends = db.relationship('Friend', backref='user_friend', foreign_keys='Friend.friend_id')
     users = db.relationship('Friend', backref='user_user', foreign_keys='Friend.user_id')
 
@@ -60,7 +60,8 @@ class User(db.Model, SerializerMixin):
 
     @hybrid_property
     def password_hash(self):
-        raise Exception('password hashes may not be viewed')
+        return self._password_hash
+        # raise Exception('password hashes may not be viewed')
 
     @password_hash.setter
     def password(self, password):
@@ -88,8 +89,7 @@ class Post(db.Model, SerializerMixin):
 class Message(db.Model, SerializerMixin):
     __tablename__ = 'messages'
 
-    serialize_rules = ('-sender', '-receiver')
-
+    serialize_rules = ('-sender', '-receiver', '-sender_id.messages_received', '-sender_id.messages_sent', '-receiver_id.messages_received', '-receiver_id.messages_sent')
     id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String)
     content = db.Column(db.String)
