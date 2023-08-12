@@ -5,7 +5,7 @@ function NavBar(){
         <nav>
             <div className="header">
                 <div className='main-title'>
-                    <h1>Schmy Space</h1>
+                    <h1>schmyspace</h1>
                 </div>
                 <div className="login-button">
                     <li><NavLink to='/logout' className='loginlink'>Logout</NavLink></li>

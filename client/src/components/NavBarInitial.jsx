@@ -5,7 +5,8 @@ function NavBarInitial(){
         <nav>
         <div className="header">
             <div className='main-title'>
-                <h1>Schmy Space</h1>
+                <img className="banner-logo" src="./public/banner-logo.png" alt="Banner Logo" />
+                <h1>schmyspace</h1>
             </div>
             <div className="login-button">
                 <li><NavLink to='/signup' className='signuplink'>Sign Up</NavLink></li>
