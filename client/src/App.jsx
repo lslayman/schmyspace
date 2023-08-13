@@ -12,7 +12,7 @@ import Browse from './components/Browse'
 import Search from './components/Search'
 import Blog from './components/Blog'
 import SignUp from './components/SignUp'
-import Home from './components/Home'
+import LandingPage from './components/LandingPage'
 import Logout from './components/Logout'
 import NavBarInitial from './components/NavBarInitial'
 
@@ -53,7 +53,7 @@ function App() {
     <div className='body'>
     <NavBarInitial onChangePage={setPage} />
     <Routes>
-      <Route path='/' element={<Home setUsers={setUsers}/>} />
+      <Route path='/' element={<LandingPage setUsers={setUsers}/>} />
       <Route path='/signup' element={<SignUp updateUser={updateUser}/>}/>
       <Route path='/login' element={<Login setUsers={setUsers}/>}/>
     </Routes>

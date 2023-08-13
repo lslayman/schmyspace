@@ -7,8 +7,10 @@ function Home({setUsers}){
     return(
         <>
         <div className="banner">
-            <img className="landing page logo" src="./public/landing-page-logo.png" alt="Logo"/>
-            <h1 className="centered-text">schmyspace</h1>
+            <div className="flex-container">
+              <img className="landing page logo" src="./public/landing-page-logo.png" alt="Logo"/>
+              <h1 className="centered-text">schmyspace</h1>
+            </div>
             <p className="centered text">we won't radicalize your grandparents</p>
         </div>
         <div className="welcome">
