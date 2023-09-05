@@ -2,13 +2,18 @@
 
 # Standard library imports
 from random import randint, choice as rc
+import os
 
 # Remote library imports
 from faker import Faker
+from dotenv import load_dotenv
 
 # Local imports
 from app import app
 from models import db, User, Post, Message, Friend
+
+load_dotenv()
+user_password = os.environ.get("USER_PW")
 
 def seed_data():
     users = []
@@ -19,7 +24,7 @@ def seed_data():
             profile_picture=fake.image_url(),
             bio=fake.text(),
         )
-        user.password = "Password2!"
+        user.password = user_password
         users.append(user)
         db.session.add(user)
 

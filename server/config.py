@@ -1,4 +1,5 @@
 # Standard library imports
+import os
 
 # Remote library imports
 from flask import Flask
@@ -8,6 +9,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
 
 
 # Local imports
@@ -34,4 +36,6 @@ CORS(app)
 
 bcrypt = Bcrypt(app)
 
-app.secret_key = b'\xae\x8e\x94[\xe4^\x90\x9a\xb8\xeb\x8a\x9b\xf6\xf4H\xd7'
+load_dotenv()
+secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = secret_key
