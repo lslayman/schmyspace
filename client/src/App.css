@@ -1,9 +1,9 @@
 nav {
-    display: grid; /* 1 */
+    display: grid;
 }
 
 nav ul {
-    display: flex; /* 5 */
+    display: flex;
     list-style: none;
   }
 
@@ -170,8 +170,6 @@ a:active {
 }
 
 .signup, .login-route{
-    /* border-color: black;
-    border-style: solid; */
     margin-left: 34%;
     margin-top: 30px;
     max-width: 425px;

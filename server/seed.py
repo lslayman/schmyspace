@@ -51,16 +51,13 @@ def seed_data():
         while friend == user:
             friend = fake.random_element(elements=users)
         friend1 = Friend(user_id=user.id, friend_id=friend.id)
-        # friend2 = Friend(user_id=friend.id, friend_id=user.id)
         db.session.add(friend1)
-        # db.session.add(friend2)
     db.session.commit()
     
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
-        # Seed code goes here!
         User.query.delete()
         Post.query.delete()
         Message.query.delete()

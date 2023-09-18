@@ -18,11 +18,6 @@ function Messages({ messages }){
     };
 
     const sendMessage = (newMessage) => {
-        // const isFriend = friends.some(friend => friend.id == newMessage.receiver);
-        // if (!isFriend) {
-        //     console.log('Cannot send message. Messages can only be sent between friends.');
-        //     return;
-        // }
         fetch('/api/messages', {
             method: 'POST',
             headers: {
@@ -47,20 +42,6 @@ function Messages({ messages }){
 
     const handleSendMessage = (e) => {
         e.preventDefault();
-
-        // const sender = e.target.sender.value;
-        // const receiver = e.target.receiver.value;
-        // const content = e.target.content.value;
-        // const subject = e.target.subject.value;
-
-        // const newMessage = {
-        //     sender,
-        //     receiver,
-        //     content,
-        //     subject,
-        // };
-
-        console.log(newMessage)
 
         sendMessage(newMessage);
 

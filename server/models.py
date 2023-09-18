@@ -8,7 +8,6 @@ from config import db, bcrypt
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    # serialize_only = ('username', 'friends.user_friend')
     serialize_rules = ('-posts.user', '-messages_sent.sender', '-messages_recieved.reciever', '-friends.user_friend', '-users.user_user', '-friends.user_user', '-users.user_friend')
 
     id = db.Column(db.Integer, primary_key=True)
@@ -61,7 +60,6 @@ class User(db.Model, SerializerMixin):
     @hybrid_property
     def password_hash(self):
         return self._password_hash
-        # raise Exception('password hashes may not be viewed')
 
     @password_hash.setter
     def password(self, password):
@@ -109,9 +107,6 @@ class Friend(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     friend_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
-    # user = db.relationship('User', foreign_keys=[user_id])
-    # friend = db.relationship('User', foreign_keys=[friend_id])
 
     __table_args__ = (db.UniqueConstraint('user_id', 'friend_id'),)
 
