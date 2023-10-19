@@ -14,7 +14,7 @@ If you've been missing a time of yore, when you could get on social media to mak
 Write about 1-2 paragraphs describing the purpose of your project.
 
 ## Getting Started
-Fork & clone this repository.
+Clone this repo to your operating system and run ```npm install`` to install all dependencies.
 
 **PLEASE NOTE:** Your local machine will need the following environment setup pre-installed for schmyspace to adequately function:
  - Node.js v16.0.0 or higher
