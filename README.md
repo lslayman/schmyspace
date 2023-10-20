@@ -42,4 +42,4 @@ From there, you can login and begin exploring schmyspace!
 A step by step series of examples that tell you how to get a development env running.
 
 ## Contributing
-This project was created in collaboration with github user @alelda for Phase 4 of Flatiron School's full stack software engineering bootcamp; an immersive 15-week coding program.
+This project was created in collaboration with github user @alelda for Phase 4 of Flatiron School's full stack software engineering bootcamp; an immersive, in-person 15-week coding program teaching students the fundamentals of JavaScript, React.js, Python, Flask & SQL.
