@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Route } from 'react-router'
-import { Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Profile from './components/Profile'
 import HomePage from './components/HomePage'
@@ -50,28 +49,32 @@ function App() {
   }, [])
 
   if(!users) return(
-    <div className='body'>
-    <NavBarInitial onChangePage={setPage} />
-    <Routes>
-      <Route path='/' element={<LandingPage setUsers={setUsers}/>} />
-      <Route path='/signup' element={<SignUp updateUser={updateUser}/>}/>
-      <Route path='/login' element={<Login setUsers={setUsers}/>}/>
-    </Routes>
-    </div>
+    <Router basename="/schmyspace">
+      <div className='body'>
+        <NavBarInitial onChangePage={setPage} />
+        <Routes>
+          <Route path='/' element={<LandingPage setUsers={setUsers}/>} />
+          <Route path='/signup' element={<SignUp updateUser={updateUser}/>}/>
+          <Route path='/login' element={<Login setUsers={setUsers}/>}/>
+        </Routes>
+      </div>
+    </Router>
   )
   return (
-    <div className='body'>
-      <NavBar onChangePage={setPage}/>
-      <Routes>
-        <Route path="/home" element={<HomePage users={users}/>}/>
-        <Route path="/logout" element={<Logout setUsers={setUsers}/>}/>
-        <Route path='/profile' element={<Profile users={users} />}/>
-        <Route path='/browse' element={<Browse/>}/>
-        <Route path='/search' element={<Search/>}/>
-        <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts} deletedPost={deletedPost}/>}/>
-        <Route path='/messages' element={<Messages messages={messages}/>}/>
-      </Routes>
-    </div>
+    <Router basename="/schmyspace">
+      <div className='body'>
+        <NavBar onChangePage={setPage}/>
+        <Routes>
+          <Route path="/home" element={<HomePage users={users}/>}/>
+          <Route path="/logout" element={<Logout setUsers={setUsers}/>}/>
+          <Route path='/profile' element={<Profile users={users} />}/>
+          <Route path='/browse' element={<Browse/>}/>
+          <Route path='/search' element={<Search/>}/>
+          <Route path='/blog' element={<Blog posts={posts} users={users} setPosts={setPosts} deletedPost={deletedPost}/>}/>
+          <Route path='/messages' element={<Messages messages={messages}/>}/>
+        </Routes>
+      </div>
+    </Router>
   )
   }
 

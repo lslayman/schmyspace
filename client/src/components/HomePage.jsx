@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { NavLink, Route } from "react-router-dom"
+import { Link, NavLink, Route } from "react-router-dom"
 import Posts from "./Posts"
 
 function HomePage({ users }){
@@ -30,8 +30,6 @@ function HomePage({ users }){
         fetch('/api/users')
     }
 
-    // console.log(users)
-
     return(
         <>
         <div className="homepage-container">
@@ -52,10 +50,10 @@ function HomePage({ users }){
                     <div className="message-container-header">
                         <h3>My Mail</h3>
                         <div class="link-container">
-                            <a href="/messages" class="link">send message</a>
-                            <a href="#" class="link">post bulletin</a>
-                            <a href="#" class="link">instant messages</a>
-                            <a href="#" class="link">check forum</a>
+                            <Link to="/messages" class="link">send message</Link>
+                            <Link to="#" class="link">post bulletin</Link>
+                            <Link to="#" class="link">instant messages</Link>
+                            <Link to="#" class="link">check forum</Link>
                         </div>
                     </div>
                 </div>
@@ -103,32 +101,6 @@ function HomePage({ users }){
         </div>
         </>
     )
-
-    // return(
-    //     <div className="home-page">
-    //         <div className="profile-prev">
-    //             <h1>Hello, {users.username}!</h1>
-    //             <div>
-    //                 {/* <img src={users.profile_picture} alt='Profile Picture' className="profile-picture"/>
-    //                 <form>
-    //                     <input type='file' name='upload' accept='image/*'/>
-    //                     <br></br>
-    //                     <button type="submit">Add Profile Picture</button>
-    //                 </form> */}
-                    
-    //             </div>
-    //         </div>
-    //         <div>
-    //             <h3>Your latest blog entries</h3>
-    //         </div>
-    //         <div>
-    //             <h3>My Mail</h3>
-    //         </div>
-    //         <div>
-    //         <NavLink to='/profile' className='profile-link'>View Your Profile</NavLink>
-    //         </div>
-    //     </div>
-    // )
 }
 
 export default HomePage
