@@ -22,10 +22,24 @@ Clone this repo to your operating system and run ```npm install`` to install all
     - Including pipenv & pyenv
 
 ## Installing
-Installation instructions.
+Once the repo has been cloned onto your operating system and ```npm install``` has already been run at the root level, proceed with the following:
+
+To start the front end:
+1. cd into the 'client' folder
+2. Run ```npm install``` to install front end-specific dependencies
+3. Run ```npm run dev``` to start the front end of the application. You will be able to access it at ```localhost:3000```
+
+To start the back end:
+1. Open a new terminal to allow the front end to continue running
+2. From the root level in your new terminal, run ```pipenv install && pipenv shell```
+3. cd into the 'server' folder
+4. Run ```python app.py``` to start the back end of the application. It will automatically work in conjunction with the front end already running in your browser.
+
+From there, you can login and begin exploring schmyspace!
+
 
 ## Usage
 A step by step series of examples that tell you how to get a development env running.
 
 ## Contributing
-Contributors names.
+This project was created in collaboration with github user @alelda for Phase 4 of Flatiron School's full stack software engineering bootcamp; an immersive 15-week coding program.
