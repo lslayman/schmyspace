@@ -33,13 +33,13 @@ To start the back end:
 1. Open a new terminal to allow the front end to continue running
 2. From the root level in your new terminal, run ```pipenv install && pipenv shell```
 3. cd into the 'server' folder
-4. Run ```python app.py``` to start the back end of the application. It will automatically work in conjunction with the front end already running in your browser.
+4. Run ```python app.py``` to start the back end of the application. It will automatically work in conjunction with the front end already running in your browser
 
 From there, you can login and begin exploring schmyspace!
 
 
 ## Usage
-A step by step series of examples that tell you how to get a development env running.
+Once the application is up and running, per the instructions above, you're welcome to create your own account via the 'Sign Up' page, which will redirect you to the user home page once your account is created. Explore blogs, bulletins, and your inbox!
 
 ## Contributing
 This project was created in collaboration with github user @alelda for Phase 4 of Flatiron School's full stack software engineering bootcamp; an immersive, in-person 15-week coding program teaching students the fundamentals of JavaScript, React.js, Python, Flask & SQL.
