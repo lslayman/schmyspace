@@ -10,3 +10,4 @@ python-dotenv==1.0.0
 six==1.16.0
 virtualenv==20.24.0
 virtualenv-clone==0.5.7
+flask
